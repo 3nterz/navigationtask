@@ -1,0 +1,5 @@
+1238217035762	0	B	Logging Begins
+1238217035762	0	INSTRUCTIONSTART	JointRoller	/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf	37	(1.000000, 1.000000, 1.000000, 1.000000)	'You will explore a virtual town for at least 5 minutes.\n You will then be required to find a certain landmark.'
+1238217035764	1	INSTRUCTIONSCROLL	0
+1238217036409	1	INSTRUCTIONSTOP	Button set (OR)
+1238217036409	0	E	Logging Ends

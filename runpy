@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# runpy
+# Nathan Tarr
+# Give this file executable privileges (chmod +x runpy)
+
+# Change this to the directory path this file is contained in
+cd `dirname $0`
+
+function pause() {
+	read -p "$*"
+}
+
+python startconfig.py
+
+if [ $? -eq 0 ] 
+	then 
+		python project.py
+fi
+
+pause 'Press key on keyboard to continue...'
