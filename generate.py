@@ -343,6 +343,20 @@ class VTownLayout:
 		"""
 		return Pool(*self.iterNonDistinct())
 
+	def landmarkNumber(self):
+		"""
+		Obtain the total count of landmarks
+		"""
+		count = 0
+		for x in self:
+			if x == "L" or (hasattr(x, "type") and x.type == "labelled"):
+				count += 1
+			elif x == "D" or (hasattr(x, "type") and x.type == "distinct"):
+				count += 1
+			elif x == "ND" or (hasattr(x, "type") and x.type == "nondistinct"):
+				count += 1
+		return count
+
 	def fillBlanks(self, landmarkLabelled, landmarkDist, landmarkNonDist):
 		"""
 		Assign attributes to each block. Note this replaces the character
@@ -359,7 +373,6 @@ class VTownLayout:
 		for y, row in enumerate(self.rows):
 			for x, value in enumerate(row):
 				if value == "L":
-					# TODO: error checking for this statement in general
 					p = PoolDict()					
 					try:
 						p = labelledIter.next().copy()
@@ -439,7 +452,7 @@ class VTownLayout:
 										item.height * unitScale,
 										item.width * unitScale )
 				else:
-					item.realsize = (unitScale, 0.0, unitScale)
+					item.realsize = (unitScale, unitScale, unitScale)
 
 	def buildVTown(self, vr, config, touchfunc):
 		"""
@@ -470,12 +483,13 @@ class VTownLayout:
 		# Landmarks
 		for item in self:
 			if (item.type == "labelled") or (item.type == "distinct") or (item.type == "nondistinct"):
-				img = config.sidewalkImage
-				if hasattr(item, "image"):
-					img = item.image
 				itemName = "unknown"
 				if hasattr(item, "name"):
 					itemName = item.name
+				img = config.sidewalkImage
+				if hasattr(item, "image"):
+					img = item.image
+			
 				vr.addBuildingBox(item.realpos[0], config.curbHeight, item.realpos[1], img, item.realsize[0], item.realsize[1])
 				xsize=item.realsize[0]
 				ysize=item.realsize[1] + config.curbHeight
@@ -488,4 +502,59 @@ class VTownLayout:
 				vr.addBuildingBox(item.realpos[0], 0.0, item.realpos[1], config.curbImage, config.unitScale, 
 							config.curbHeight, roofimage = config.sidewalkImage, texlen = config.curbHeight, 
 							rooftexlen = config.sidewalkTexLen)
+
+	def printEnvironment(self):
+		'''
+		Prints a text-based representation of
+		the environment generated, where stores are marked by X's.
+		This will be messy if the terminal window's width is smaller 
+		than (len(x)*3)+2 characters, where x is the environment's x-dimension, 
+		or if a non-uniformly-spaced font is used.
+		'''
+		x = self.rows[0]
+		y = self.rows
+
+		#print a summary:
+		print
+		print "SIZE: %s x %s" % (self.getWidth(), self.getHeight())
+		print "LANDMARK COUNT: %s" % self.landmarkNumber()
+		print
+
+		#print the top row of the diagram
+		print '  |',
+		for i in xrange(len(x)):
+			print i,
+			print '|',
+		
+		#print the columns (one row at a time)
+		for i in xrange(len(y)):
+			#start a new line
+			print
+			#print a divider
+			for j in xrange((len(x)*2)+2):
+				print '-',
+			#start a new line
+			print
+			#print row number
+			print i,
+			#print the row
+			print '|',
+			for j in range(len(x)):
+				val = y[i][j]
+				if val == "L" or (hasattr(val, "type") and val.type == "labelled"):
+					print 'X |',
+				elif val == "D" or (hasattr(val, "type") and val.type == "distinct"):
+					print 'X |',
+				elif val == "ND" or (hasattr(val, "type") and val.type == "nondistinct"):
+					print 'X |',
+				else:
+					print '  |',
+		#start a new line
+		print
+		#print the last divider:
+		for i in range((len(x)*2)+2):
+			print '-',
+		#start a new line, and skip another
+		print
+		print
 

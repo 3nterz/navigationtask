@@ -52,6 +52,8 @@ class SearchTask(runnable.Runnable):
 
 		self.layout.buildVTown(self.vr, self.config, self.landmarkTouched)
 
+		self.layout.printEnvironment()
+
 		all_landmarks = Pool()
 		all_landmarks.extend(avail_lmarks)
 		all_landmarks.extend(avail_dmarks)

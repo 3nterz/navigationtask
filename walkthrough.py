@@ -51,6 +51,8 @@ class GuidedTask(runnable.Runnable):
 
 		self.layout.buildVTown(self.vr, self.config, self.landmarkTouched)
 
+		self.layout.printEnvironment()
+
 	def landmarkTouched(self, name):
 		"""
 		Empty function
