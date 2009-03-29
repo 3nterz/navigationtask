@@ -13,8 +13,8 @@ class GuidedCam:
 		"""
 		Build a new guided camera with initial settings
 		"""
-		#self.speed = 0.03
-		self.speed = 0.5
+		self.speed = 0.03
+		#self.speed = 0.5
 
 		self.t = 0.0
 		self.seqnum = 0

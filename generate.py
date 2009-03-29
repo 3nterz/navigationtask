@@ -515,46 +515,42 @@ class VTownLayout:
 		y = self.rows
 
 		#print a summary:
-		print
-		print "SIZE: %s x %s" % (self.getWidth(), self.getHeight())
-		print "LANDMARK COUNT: %s" % self.landmarkNumber()
-		print
+		output = ["\n"]
+		output.append("SIZE:\t%s x %s\n" % (self.getWidth(), self.getHeight()))
+		output.append("LANDMARK COUNT:\t%s\n" % self.landmarkNumber())
+		output.append("\n")
 
 		#print the top row of the diagram
-		print '  |',
+		output.append("\t")
 		for i in xrange(len(x)):
-			print i,
-			print '|',
+			output.append("%s" % i)
+			output.append("\t")
 		
 		#print the columns (one row at a time)
 		for i in xrange(len(y)):
 			#start a new line
-			print
-			#print a divider
-			for j in xrange((len(x)*2)+2):
-				print '-',
+			output.append("\n")
 			#start a new line
-			print
+			output.append("\n")
 			#print row number
-			print i,
+			output.append("%s" % i)
 			#print the row
-			print '|',
+			output.append("\t")
 			for j in range(len(x)):
 				val = y[i][j]
 				if val == "L" or (hasattr(val, "type") and val.type == "labelled"):
-					print 'X |',
+					output.append("X\t")
 				elif val == "D" or (hasattr(val, "type") and val.type == "distinct"):
-					print 'X |',
+					output.append("X\t")
 				elif val == "ND" or (hasattr(val, "type") and val.type == "nondistinct"):
-					print 'X |',
+					output.append("X\t")
 				else:
-					print '  |',
+					output.append("\t")
 		#start a new line
-		print
-		#print the last divider:
-		for i in range((len(x)*2)+2):
-			print '-',
+		output.append("\n")
 		#start a new line, and skip another
-		print
-		print
+		output.append("\n")
+		output.append("\n")
+
+		return ''.join(output)
 

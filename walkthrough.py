@@ -268,6 +268,7 @@ class GuidedTask(runnable.Runnable):
 
 			self.tasklog.flush()
 
+		self.tasklog.logMessage(self.layout.printEnvironment())
 		self.tasklog.logMessage("")
 		self.tasklog.flush()
 

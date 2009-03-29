@@ -1,8 +1,8 @@
 <?xml version="1.0" ?><options>
-<name>Yeah</name>
+<name>Dad</name>
 <fullscreen>False</fullscreen>
-<resolutionwidth>1024</resolutionwidth>
-<resolutionheight>768</resolutionheight>
+<resolutionwidth>800</resolutionwidth>
+<resolutionheight>600</resolutionheight>
 <orderswapped>False</orderswapped>
-<supervisor>nate</supervisor>
+<supervisor>Nathan</supervisor>
 </options>
